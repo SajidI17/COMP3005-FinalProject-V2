@@ -21,6 +21,7 @@ private static final String PASSWORD = "admin";
 9. Build and run the src/main/java/DatabaseInterface.java inside IntelliJ
 
 # Video Demo (Youtube Link)
+https://www.youtube.com/watch?v=8H9wfNG2-Hk
 
 # Files
 Several files related to the project can be found in this repository
