@@ -650,14 +650,14 @@ public class DatabaseInterface {
             //print results
             while(resultSet.next()){
                 System.out.println("Session Title: " + resultSet.getString("sessionTitle"));
-                System.out.println("Registration ID: " + resultSet.getInt("registrationID"));
-                System.out.println("Session ID: " + resultSet.getInt("sessionID"));
-                System.out.println("Trainer ID: " + resultSet.getInt("trainerID"));
-                System.out.println("Total Spots: " + resultSet.getInt("totalSpots"));
-                System.out.println("Current Spots: " + resultSet.getInt("currentSpots"));
-                System.out.println("Status: " + resultSet.getBoolean("status"));
-                System.out.println("Session Start Date: " + resultSet.getTimestamp("sessionStartDate"));
-                System.out.println("Session End Date: " + resultSet.getTimestamp("sessionEndDate"));
+                System.out.println("\tRegistration ID: " + resultSet.getInt("registrationID"));
+                System.out.println("\tSession ID: " + resultSet.getInt("sessionID"));
+                System.out.println("\tTrainer ID: " + resultSet.getInt("trainerID"));
+                System.out.println("\tTotal Spots: " + resultSet.getInt("totalSpots"));
+                System.out.println("\tCurrent Spots: " + resultSet.getInt("currentSpots"));
+                System.out.println("\tStatus: " + resultSet.getBoolean("status"));
+                System.out.println("\tSession Start Date: " + resultSet.getTimestamp("sessionStartDate"));
+                System.out.println("\tSession End Date: " + resultSet.getTimestamp("sessionEndDate"));
                 System.out.println("-----------");
             }
         }
@@ -697,7 +697,7 @@ public class DatabaseInterface {
 
             System.out.println("\nROUTINES: ");
             while (resultSet.next()) {
-                System.out.println("\tRoutine ID: " + resultSet.getInt("routineID"));
+                System.out.println("Routine ID: " + resultSet.getInt("routineID"));
                 System.out.println("\tTime and Date: " + resultSet.getTimestamp("timeDate"));
                 System.out.println("\tHours Spent: " + resultSet.getFloat("hoursSpent"));
                 System.out.println("\tAverage BPM: " + resultSet.getFloat("averageBPM"));
@@ -713,7 +713,7 @@ public class DatabaseInterface {
 
             System.out.println("\nHEALTH STATS: ");
             while (resultSet.next()) {
-                System.out.println("\tHealth Stat ID: " + resultSet.getInt("healthStatID"));
+                System.out.println("Health Stat ID: " + resultSet.getInt("healthStatID"));
                 System.out.println("\tWeight: " + resultSet.getFloat("weight"));
                 System.out.println("\tTime and Date: " + resultSet.getTimestamp("timeDate"));
                 System.out.println("-----------");
@@ -771,10 +771,10 @@ public class DatabaseInterface {
             System.out.println("TRAINER AVAILABILITY: \n");
             while (resultSet.next()) {
                 System.out.println("Trainer Name: " + resultSet.getString("name"));
-                System.out.println("Trainer ID: " + resultSet.getInt("trainerID"));
-                System.out.println("Availability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
-                System.out.println("Availability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
-                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("\tTrainer ID: " + resultSet.getInt("trainerID"));
+                System.out.println("\tAvailability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
+                System.out.println("\tAvailability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
+                System.out.println("\tEmail: " + resultSet.getString("email"));
                 System.out.println("-----------");
             }
 
@@ -844,10 +844,10 @@ public class DatabaseInterface {
             System.out.println("TRAINERS: \n");
             while (resultSet.next()) {
                 System.out.println("Trainer Name: " + resultSet.getString("name"));
-                System.out.println("Trainer ID: " + resultSet.getInt("trainerID"));
-                System.out.println("Availability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
-                System.out.println("Availability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
-                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("\tTrainer ID: " + resultSet.getInt("trainerID"));
+                System.out.println("\tAvailability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
+                System.out.println("\tAvailability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
+                System.out.println("\tEmail: " + resultSet.getString("email"));
                 System.out.println("-----------");
             }
         }
@@ -866,10 +866,10 @@ public class DatabaseInterface {
             System.out.println("TRAINER: \n");
             while (resultSet.next()) {
                 System.out.println("Trainer Name: " + resultSet.getString("name"));
-                System.out.println("Trainer ID: " + resultSet.getInt("trainerID"));
-                System.out.println("Availability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
-                System.out.println("Availability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
-                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("\tTrainer ID: " + resultSet.getInt("trainerID"));
+                System.out.println("\tAvailability Start Time (all week): " + resultSet.getTime("availabilityStartTime"));
+                System.out.println("\tAvailability End Time (all week): " + resultSet.getTime("availabilityENDTime"));
+                System.out.println("\tEmail: " + resultSet.getString("email"));
                 System.out.println("-----------");
             }
         }
@@ -959,9 +959,9 @@ public class DatabaseInterface {
             System.out.println("ROOM BOOKINGS: \n");
             while (resultSet.next()) {
                 System.out.println("Booking ID: " + resultSet.getInt("bookingID"));
-                System.out.println("Room Number: " + resultSet.getInt("roomNum"));
-                System.out.println("Booking Start Time: " + resultSet.getTimestamp("sessionStartDate"));
-                System.out.println("Booking End Time: " + resultSet.getTimestamp("sessionEndDate"));
+                System.out.println("\tRoom Number: " + resultSet.getInt("roomNum"));
+                System.out.println("\tBooking Start Time: " + resultSet.getTimestamp("sessionStartDate"));
+                System.out.println("\tBooking End Time: " + resultSet.getTimestamp("sessionEndDate"));
                 System.out.println("-----------");
             }
         }
@@ -1027,8 +1027,8 @@ public class DatabaseInterface {
             System.out.println("EQUIPMENT: \n");
             while (resultSet.next()) {
                 System.out.println("Equipment ID: " + resultSet.getInt("equipmentID"));
-                System.out.println("Equipment Name: " + resultSet.getString("equipmentName"));
-                System.out.println("Maintenance Notes: " + resultSet.getString("maintenanceStatus"));
+                System.out.println("\tEquipment Name: " + resultSet.getString("equipmentName"));
+                System.out.println("\tMaintenance Notes: " + resultSet.getString("maintenanceStatus"));
                 System.out.println("-----------");
             }
         }
@@ -1122,10 +1122,10 @@ public class DatabaseInterface {
             System.out.println("Billing: \n");
             while (resultSet.next()) {
                 System.out.println("Bill ID: " + resultSet.getInt("billID"));
-                System.out.println("Member ID: " + resultSet.getInt("memberID"));
-                System.out.println("Bill Details: " + resultSet.getString("billDetails"));
-                System.out.println("Bill Amount: " + resultSet.getFloat("billAmount"));
-                System.out.println("Bill Paid: " + resultSet.getBoolean("paid"));
+                System.out.println("\tMember ID: " + resultSet.getInt("memberID"));
+                System.out.println("\tBill Details: " + resultSet.getString("billDetails"));
+                System.out.println("\tBill Amount: " + resultSet.getFloat("billAmount"));
+                System.out.println("\tBill Paid: " + resultSet.getBoolean("paid"));
                 System.out.println("-----------");
             }
         }
