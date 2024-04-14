@@ -177,39 +177,40 @@ public class DatabaseInterface {
             String updateSQL;
             PreparedStatement updateStatement;
             int userSelection = obj.nextInt();
-            obj.nextLine();
-            if(userSelection == 1){
+            obj.nextLine(); //clear newline from nextInt
+
+            if(userSelection == 1){ //update name
                 updateSQL = "UPDATE Member SET name = ? WHERE memberID = ?";
                 updateStatement = connection.prepareStatement(updateSQL);
                 System.out.println("Enter the new name: ");
                 String name = obj.nextLine();
                 updateStatement.setString(1, name);
             }
-            else if(userSelection == 2){
+            else if(userSelection == 2){ //update email
                 updateSQL = "UPDATE Member SET email = ? WHERE memberID = ?";
                 updateStatement = connection.prepareStatement(updateSQL);
                 System.out.println("Enter the new email: ");
                 String email = obj.nextLine();
                 updateStatement.setString(1, email);
             }
-            else if(userSelection == 3){
+            else if(userSelection == 3){//update password
                 updateSQL = "UPDATE Member SET password = ? WHERE memberID = ?";
                 updateStatement = connection.prepareStatement(updateSQL);
                 System.out.println("Enter the new password: ");
                 String password = obj.nextLine();
                 updateStatement.setString(1, password);
             }
-            else if(userSelection == 4){
+            else if(userSelection == 4){//update body fat percentage
                 updateSQL = "UPDATE Member SET currentBodyFatPercentage = ? WHERE memberID = ?";
                 updateStatement = connection.prepareStatement(updateSQL);
                 System.out.println("Enter the new body fat percentage: ");
                 Float bodyFat = obj.nextFloat();
                 updateStatement.setFloat(1, bodyFat);
             }
-            else if(userSelection == 5){
+            else if(userSelection == 5){//update current weight
                 return updateCurrentWeight(connection, memberID);
             }
-            else {
+            else { //update weight goal
                 updateSQL = "UPDATE Member SET weightGoal = ? WHERE memberID = ?";
                 updateStatement = connection.prepareStatement(updateSQL);
                 System.out.println("Enter the new weight goal: ");
@@ -242,6 +243,7 @@ public class DatabaseInterface {
             System.out.println("Enter calories burnt");
             int caloriesBurnt = obj.nextInt();
 
+            //Insert values into table
             String sqlStatement = "INSERT INTO Routines (memberID, timeDate, hoursSpent, averageBPM, caloriesBurnt) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1, memberID);
@@ -308,7 +310,7 @@ public class DatabaseInterface {
             int sessionID = obj.nextInt();
             obj.nextLine();
 
-            //check if session exists
+            //check if group session exists
             String searchQuery = "SELECT * FROM TrainingSessions WHERE sessionID = ?";
             PreparedStatement searchStatement = connection.prepareStatement(searchQuery);
             searchStatement.setInt(1, sessionID);
@@ -328,7 +330,7 @@ public class DatabaseInterface {
             String endDateString = obj.nextLine();
             Timestamp endTime = Timestamp.valueOf(endDateString);
 
-            //update session
+            //update session with new start time and end time
             String sqlStatement = "UPDATE TrainingSessions SET sessionStartDate = ?, sessionEndDate = ? WHERE sessionID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setTimestamp(1, startTime);
@@ -376,6 +378,7 @@ public class DatabaseInterface {
                 return false;
             }
 
+            //create a record of user registering for group session
             String insertSQLStatement = "INSERT INTO MemberTrainingRegistration (memberID, sessionID) VALUES (?, ?)";
             PreparedStatement insertStatement = connection.prepareStatement(insertSQLStatement);
             insertStatement.setInt(1, memberID);
@@ -397,6 +400,7 @@ public class DatabaseInterface {
             System.out.println("Enter the sessionID of the session you want to delete: ");
             int sessionID = obj.nextInt();
 
+            //delete record of registering for group sessiojn
             String sqlStatement = "DELETE FROM MemberTrainingRegistration WHERE memberID = ? AND sessionID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1, memberID);
@@ -610,6 +614,7 @@ public class DatabaseInterface {
 
     public static void printProfile(Connection connection, int memberID){
         try {
+            //prints the user profile
             String searchQuery = "SELECT * FROM Member WHERE memberID = ?";
             PreparedStatement statement = connection.prepareStatement(searchQuery);
             statement.setInt(1, memberID);
@@ -634,6 +639,9 @@ public class DatabaseInterface {
 
     public static void printGroupSessions(Connection connection, int memberID){
         try {
+            //MemberTrainingRegistration does not contain full information about group session
+            //Must join with TrainingSessions to print full information about a user's booked group session
+            //Joining MemberTrainingRegistration with TrainingSessions by the sessionID whenever memberID matches
             String searchQuery = "SELECT m.registrationID, t.sessionID, t.trainerID, t.totalSpots, t.currentSpots, t.status, t.sessionStartDate, t.sessionEndDate, t.sessionTitle FROM MemberTrainingRegistration m JOIN TrainingSessions t ON m.sessionID = t.sessionID WHERE m.memberID = ?";
             PreparedStatement statement = connection.prepareStatement(searchQuery);
             statement.setInt(1, memberID);
@@ -681,6 +689,7 @@ public class DatabaseInterface {
 
     public static void printDashboard(Connection connection, int memberID){
         try {
+            //print all routines
             String searchQuery = "SELECT * FROM Routines WHERE memberID = ?";
             PreparedStatement statement = connection.prepareStatement(searchQuery);
             statement.setInt(1, memberID);
@@ -696,6 +705,7 @@ public class DatabaseInterface {
                 System.out.println("-----------");
             }
 
+            //print all health stats
             searchQuery = "SELECT * FROM HealthStats WHERE memberID = ?";
             statement = connection.prepareStatement(searchQuery);
             statement.setInt(1, memberID);
@@ -709,6 +719,7 @@ public class DatabaseInterface {
                 System.out.println("-----------");
             }
 
+            //find the max caloriesburnt and hours spent in a routine
             searchQuery = "SELECT MAX(caloriesBurnt), MAX(hoursSpent) FROM Routines WHERE memberID = ?";
             statement = connection.prepareStatement(searchQuery);
             statement.setInt(1, memberID);
@@ -726,6 +737,7 @@ public class DatabaseInterface {
 
     public static void printAllGroupSessions(Connection connection){
         try {
+            //Just joining, so I can print the trainerName along with the group session
             String searchQuery = "SELECT ts.*, t.name AS trainerName FROM TrainingSessions ts JOIN Trainer t ON ts.trainerID = t.trainerID";
             PreparedStatement statement = connection.prepareStatement(searchQuery);
             ResultSet resultSet = statement.executeQuery();
@@ -755,6 +767,7 @@ public class DatabaseInterface {
             PreparedStatement statement = connection.prepareStatement(searchQuery);
             ResultSet resultSet = statement.executeQuery();
 
+            //Print the trainer's availability
             System.out.println("TRAINER AVAILABILITY: \n");
             while (resultSet.next()) {
                 System.out.println("Trainer Name: " + resultSet.getString("name"));
@@ -765,6 +778,7 @@ public class DatabaseInterface {
                 System.out.println("-----------");
             }
 
+            //Print all booked training sessions with a trainer from a member
             searchQuery = "SELECT m.*, t.name as trainerName FROM MemberPersonalTrainingRegistration as m JOIN Trainer T ON m.trainerID = t.trainerID";
             statement = connection.prepareStatement(searchQuery);
             resultSet = statement.executeQuery();
@@ -972,6 +986,7 @@ public class DatabaseInterface {
             String endTimeString = obj.nextLine();
             Timestamp endTime = Timestamp.valueOf(endTimeString);
 
+            //First check to see if there's any possible conflicts before adding
             String query = "SELECT * FROM RoomBooking WHERE roomNum = ? AND ((sessionStartDate <= ? AND sessionEndDate >= ?) OR (sessionStartDate <= ? AND sessionEndDate >= ?))";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, roomNum);
@@ -1066,7 +1081,7 @@ public class DatabaseInterface {
             System.out.println("Enter the ID of the member you want to generate a bill for: ");
             int memberID = obj.nextInt();
 
-
+            //Check if user exists first
             String query = "SELECT * FROM Member WHERE memberID = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, memberID);
