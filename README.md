@@ -22,4 +22,10 @@ private static final String PASSWORD = "admin";
 
 # Video Demo (Youtube Link)
 
+# Files
+Several files related to the project can be found in this repository
+- DDL.sql and DML.sql files can be found under the sql folder
+- Conceptual Design and Relational Schema Diagrams can be found under the diagrams folder
+- A PDF (Assumptions.PDF) containing assumptions made for the project can be found under the diagrams folder
+- Source code is under src/main/java/DatabaseInterface.java
 
