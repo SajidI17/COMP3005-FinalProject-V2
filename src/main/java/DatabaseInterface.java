@@ -2,7 +2,7 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class DatabaseInterface {
-    private static final String URL = "jdbc:postgresql://localhost:5432/TestTemp"; //Change AssignmentThree to the name of the database you have
+    private static final String URL = "jdbc:postgresql://localhost:5432/HealthFitnessDatabase"; //Change HealthFitnessDatabase to the name of the database you have
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "admin";
 
